@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import { APP_NAME, MOTTO_BN, UNIVERSITY_NAME_BN, UNIVERSITY_NAME_EN } from "@/lib/constants";
+import { APP_NAME, UNIVERSITY_NAME_BN, UNIVERSITY_NAME_EN } from "@/lib/constants";
 import { useAppState } from "@/lib/app-context";
 import { nextPath } from "@/lib/flow";
 
@@ -49,7 +49,7 @@ export function SiteHeader() {
             <span className="block truncate text-xs text-du-muted">{APP_NAME}</span>
           </span>
         </Link>
-        <p className="ml-auto hidden font-bengali text-sm text-du-gold-deep md:block">{MOTTO_BN}</p>
+        {/* <p className="ml-auto hidden font-bengali text-sm text-du-gold-deep md:block">{MOTTO_BN}</p> */}
         <button
           type="button"
           className="ml-auto border border-du-line px-3 py-1.5 text-sm md:hidden"

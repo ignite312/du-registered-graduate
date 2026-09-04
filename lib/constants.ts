@@ -3,7 +3,6 @@ import type { DegreeProgram, Department } from "./types";
 export const APP_NAME = "Registered Graduate & Senate Election System";
 export const UNIVERSITY_NAME_EN = "University of Dhaka";
 export const UNIVERSITY_NAME_BN = "ঢাকা বিশ্ববিদ্যালয়";
-export const MOTTO_BN = "শিক্ষাই আলো";
 
 export const MOCK_OTP = "123456";
 export const EXISTING_RG_REGISTRATION = "2012-18542";
