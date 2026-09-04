@@ -1,26 +1,74 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f4f6f8;
+  --foreground: #1a1f2e;
+  --du-purple: #3b1462;
+  --du-purple-deep: #2a0d48;
+  --du-purple-soft: #f1eef6;
+  --du-gold: #c4a35a;
+  --du-gold-deep: #8c6e2f;
+  --du-red: #a31d2e;
+  --du-ink: #1a1f2e;
+  --du-muted: #5a6170;
+  --du-line: #dce1e7;
+  --du-paper: #ffffff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-du-purple: var(--du-purple);
+  --color-du-purple-deep: var(--du-purple-deep);
+  --color-du-purple-soft: var(--du-purple-soft);
+  --color-du-gold: var(--du-gold);
+  --color-du-gold-deep: var(--du-gold-deep);
+  --color-du-red: var(--du-red);
+  --color-du-ink: var(--du-ink);
+  --color-du-muted: var(--du-muted);
+  --color-du-line: var(--du-line);
+  --color-du-paper: var(--du-paper);
+  --font-sans: var(--font-source-sans);
+  --font-serif: var(--font-source-serif);
+  --font-bengali: var(--font-noto-bengali);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+}
+
+.font-bengali {
+  font-family: var(--font-noto-bengali), "Noto Serif Bengali", serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-source-serif), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--du-purple);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 50;
+  background: var(--du-purple);
+  color: white;
+  padding: 0.5rem 0.75rem;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
 }
