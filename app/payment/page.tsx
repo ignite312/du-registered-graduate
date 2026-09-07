@@ -18,21 +18,34 @@ const METHODS = [
 export default function PaymentPage() {
   return (
     <FlowGate require="membershipChosen">
-      <div className="mx-auto max-w-lg px-4 py-8">
-        <Stepper current={8} />
-        <PageIntro
-          kicker="Payment"
-          title="Pay with SSLCommerz"
-          description="You will be taken to a demonstration SSLCommerz checkout. No real charge is made."
-        />
-        <PaymentForm />
-      </div>
+      <PaymentBody />
     </FlowGate>
   );
 }
 
-function PaymentForm() {
+function PaymentBody() {
   const { state } = useAppState();
+  const renewing = state.rgStatus === "existing" && state.membership === "session";
+
+  return (
+      <div className="mx-auto max-w-lg px-4 py-8">
+        <Stepper current="payment" />
+        <PageIntro
+          kicker={renewing ? "Renewal" : "Payment · optional"}
+          title={renewing ? "Renew session membership" : "Pay with SSLCommerz"}
+          description={
+            renewing
+              ? "Your sessional term has ended. Pay ৳1,000 to renew for three academic years. You may skip and renew later from the dashboard."
+              : "All payment types are optional and may be completed later from the dashboard. This checkout is a demonstration only."
+          }
+        />
+        <PaymentForm />
+      </div>
+  );
+}
+
+function PaymentForm() {
+  const { state, update } = useAppState();
   const router = useRouter();
   const [method, setMethod] = useState("bkash");
   const amount = state.membership === "lifetime" ? LIFETIME_FEE_BDT : SESSION_FEE_BDT;
@@ -75,6 +88,12 @@ function PaymentForm() {
       </fieldset>
       <Button type="submit" className="w-full">
         Continue to SSLCommerz
+      </Button>
+      <Button type="button" variant="secondary" className="w-full" onClick={() => {
+        update({ paymentSkipped: true });
+        router.push("/dashboard");
+      }}>
+        Skip for later
       </Button>
     </form>
   );

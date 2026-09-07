@@ -7,6 +7,7 @@ import { Alert, Button } from "@/components/ui";
 import { LIFETIME_FEE_BDT, SESSION_FEE_BDT } from "@/lib/constants";
 import { useAppState } from "@/lib/app-context";
 import { createSslcommerzSession } from "@/lib/mock-api";
+import { sessionExpiryDate } from "@/lib/membership";
 
 export default function SslcommerzPage() {
   return (
@@ -44,7 +45,13 @@ function SslcommerzCheckout() {
         amountBdt: amount,
         method: METHOD_LABEL[method] ?? method,
       });
-      update({ payment: receipt });
+      update({
+        payment: receipt,
+        heldMembership:
+          receipt.membership === "lifetime"
+            ? { type: "lifetime", expiresAt: null }
+            : { type: "session", expiresAt: sessionExpiryDate() },
+      });
       router.push("/payment/success");
     } catch {
       setError("Payment could not be completed. Try again.");

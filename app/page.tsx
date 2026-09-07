@@ -21,9 +21,10 @@ export default function HomePage() {
               Registered Graduate &amp; Senate Election System
             </h1>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-du-muted sm:text-base">
-              The official channel for {UNIVERSITY_NAME_EN} graduates to verify
-              academic eligibility, complete Registered Graduate membership, and
-              prepare for the election of 25 Senate members.
+              The official channel for {UNIVERSITY_NAME_EN} graduates to verify academic
+              eligibility, complete the Registered Graduate Enrollment Form, and prepare
+              for the election of 25 Senate members. Session and lifetime payment remain
+              optional.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -46,7 +47,8 @@ export default function HomePage() {
       <section className="mx-auto max-w-5xl px-4 py-10">
         <h2 className="text-xl text-du-purple-deep">Eligibility</h2>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-du-muted">
-          Applicants must satisfy both conditions before any record lookup or payment:
+          Applicants on the new-member path must satisfy both conditions after the five-field
+          lookup, before the enrollment form or any payment:
         </p>
         <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm leading-6 text-du-ink">
           <li>The degree programme lasted at least one academic year.</li>
@@ -63,12 +65,12 @@ export default function HomePage() {
           <h2 className="text-xl text-du-purple-deep">How to apply</h2>
           <ol className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              ["1. Account", "Register with a Bangladesh mobile number and confirm the OTP."],
-              ["2. Academic identity", "Enter registration number, session, degree, and department."],
-              ["3. Eligibility gate", "The portal checks duration and the three-year waiting period."],
-              ["4. Record lookup", "Eligible graduates are matched against four university sources."],
-              ["5. Membership", "Choose Session (annual) or Lifetime membership."],
-              ["6. Payment", "Pay through SSLCommerz (bKash, Nagad, card, or internet banking)."],
+              ["1. Account", "Register with a Bangladesh mobile number, confirm OTP, and sign in."],
+              ["2. RG status", "Say whether you already have an RG ID (Branch A) or not (Branch B)."],
+              ["3. Five lookup keys", "Registration number, session, degree, department, and date of birth."],
+              ["4. Auto-fill & eligibility", "University records pre-fill Appendix A; the three-year rule is applied."],
+              ["5. Complete profile", "Review auto-filled fields and enter anything the sources did not return."],
+              ["6. Membership (optional)", "Session (৳1,000 / three years) or Lifetime (৳2,500), payable now or later."],
             ].map(([title, body]) => (
               <li key={title} className="border border-du-line p-4">
                 <p className="font-serif text-du-purple">{title}</p>

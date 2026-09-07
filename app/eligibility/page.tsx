@@ -10,7 +10,7 @@ import { evaluateEligibility } from "@/lib/mock-api";
 
 export default function EligibilityPage() {
   return (
-    <FlowGate require="identified">
+    <FlowGate require="lookedUp">
       <EligibilityCheck />
     </FlowGate>
   );
@@ -22,7 +22,7 @@ function EligibilityCheck() {
   const [message, setMessage] = useState("Reviewing degree duration…");
 
   useEffect(() => {
-    if (!state.academic) return;
+    if (!state.academic || state.eligibility !== "unchecked") return;
     let cancelled = false;
 
     (async () => {
@@ -34,13 +34,12 @@ function EligibilityCheck() {
       if (cancelled) return;
       if (result.eligible) {
         update({ eligibility: "eligible", eligibilityReasons: [] });
-        router.replace("/rg-lookup");
+        router.replace("/profile");
       } else {
         update({
           eligibility: "ineligible",
           eligibilityReasons: result.reasons,
-          lookup: "idle",
-          profile: null,
+          profileComplete: false,
           membership: null,
           payment: null,
         });
@@ -51,15 +50,15 @@ function EligibilityCheck() {
     return () => {
       cancelled = true;
     };
-  }, [router, state.academic, update]);
+  }, [router, state.academic, state.eligibility, update]);
 
   return (
     <div className="mx-auto max-w-lg px-4 py-8">
-      <Stepper current={4} />
+      <Stepper current="eligibility" />
       <PageIntro
         kicker="Gate"
         title="Eligibility check"
-        description="The portal applies the one-year degree rule and the three-year post-graduation rule before any database lookup."
+        description="Using the auto-filled or supplied degree programme and graduation year, the portal applies the one-year degree rule and the three-year post-graduation rule."
       />
       <p className="border border-du-line bg-du-paper px-4 py-6 text-sm text-du-muted" role="status">
         {message}

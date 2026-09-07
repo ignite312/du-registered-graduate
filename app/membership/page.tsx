@@ -11,13 +11,13 @@ import type { MembershipType } from "@/lib/types";
 
 export default function MembershipPage() {
   return (
-    <FlowGate require="profiled">
+    <FlowGate require="member">
       <div className="mx-auto max-w-lg px-4 py-8">
-        <Stepper current={7} />
+        <Stepper current="membership" />
         <PageIntro
-          kicker="Membership"
+          kicker="Membership · optional"
           title="Select membership"
-          description="Session membership is renewed each year. Lifetime membership is a single payment."
+          description="Session membership is ৳1,000 for three academic years. Lifetime membership is ৳2,500. This step is never required to hold Unregistered Graduate or Registered Graduate status."
         />
         <MembershipForm />
       </div>
@@ -26,13 +26,14 @@ export default function MembershipPage() {
 }
 
 function MembershipForm() {
-  const { state, setMembership } = useAppState();
+  const { state, setMembership, update } = useAppState();
   const router = useRouter();
   const [choice, setChoice] = useState<MembershipType>(state.membership ?? "session");
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setMembership(choice);
+    update({ paymentSkipped: false });
     router.push("/payment");
   }
 
@@ -52,7 +53,7 @@ function MembershipForm() {
           <span>
             <span className="block font-serif text-du-purple">Session Member</span>
             <span className="mt-1 block text-sm text-du-muted">
-              Annual membership for the current session. Fee ৳{SESSION_FEE_BDT.toLocaleString("en-BD")}.
+              Taka {SESSION_FEE_BDT.toLocaleString("en-BD")} for three academic years.
             </span>
           </span>
         </label>
@@ -75,6 +76,12 @@ function MembershipForm() {
       </fieldset>
       <Button type="submit" className="w-full">
         Continue to payment
+      </Button>
+      <Button type="button" variant="secondary" className="w-full" onClick={() => {
+        update({ paymentSkipped: true });
+        router.push("/dashboard");
+      }}>
+        Skip for later
       </Button>
     </form>
   );

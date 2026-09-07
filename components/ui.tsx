@@ -39,16 +39,30 @@ export function Field({
   label,
   hint,
   error,
+  badge,
   children,
 }: {
   label: string;
   hint?: string;
   error?: string;
+  badge?: "filled" | "required";
   children: React.ReactNode;
 }) {
   return (
     <label className="block space-y-1.5">
-      <span className="block text-sm font-medium text-du-ink">{label}</span>
+      <span className="flex flex-wrap items-center gap-2 text-sm font-medium text-du-ink">
+        {label}
+        {badge === "filled" ? (
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-du-gold-deep">
+            Auto-filled
+          </span>
+        ) : null}
+        {badge === "required" ? (
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-du-red">
+            Fill in
+          </span>
+        ) : null}
+      </span>
       {children}
       {hint && !error ? <span className="block text-xs text-du-muted">{hint}</span> : null}
       {error ? <span className="block text-xs text-du-red">{error}</span> : null}
@@ -57,18 +71,18 @@ export function Field({
 }
 
 const inputClass =
-  "h-11 w-full border border-du-line bg-du-paper px-3 text-sm text-du-ink rounded-sm placeholder:text-du-muted/70";
+  "h-11 w-full border border-du-line bg-du-paper px-3 text-sm text-du-ink rounded-sm placeholder:text-du-muted/70 read-only:bg-[#f4f6f8]";
 
-export function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
-  return <input className={inputClass} {...props} />;
+export function Input({ className = "", ...props }: React.InputHTMLAttributes<HTMLInputElement>) {
+  return <input className={`${inputClass} ${className}`} {...props} />;
 }
 
-export function Select(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
-  return <select className={inputClass} {...props} />;
+export function Select({ className = "", ...props }: React.SelectHTMLAttributes<HTMLSelectElement>) {
+  return <select className={`${inputClass} ${className}`} {...props} />;
 }
 
-export function Textarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
-  return <textarea className={`${inputClass} h-24 py-2`} {...props} />;
+export function Textarea({ className = "", ...props }: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  return <textarea className={`${inputClass} h-24 py-2 ${className}`} {...props} />;
 }
 
 export function Alert({

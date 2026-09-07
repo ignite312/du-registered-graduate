@@ -13,7 +13,7 @@ export default function VerifyOtpPage() {
   return (
     <FlowGate require="otpPending">
       <div className="mx-auto max-w-lg px-4 py-8">
-        <Stepper current={1} />
+        <Stepper current="otp" />
         <PageIntro
           kicker="Account"
           title="OTP verification"

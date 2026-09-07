@@ -17,7 +17,10 @@ export function SiteHeader() {
   const links = state.loggedIn
     ? [
         { href: "/", label: "Home" },
-        { href: nextPath(state), label: state.payment ? "Dashboard" : "Continue application" },
+        {
+          href: nextPath(state),
+          label: nextPath(state) === "/dashboard" ? "Dashboard" : "Continue application",
+        },
       ]
     : [
         { href: "/", label: "Home" },

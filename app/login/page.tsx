@@ -5,12 +5,13 @@ import { useState } from "react";
 import { Stepper } from "@/components/stepper";
 import { Alert, Button, Field, Input, PageIntro, TextLink } from "@/components/ui";
 import { useAppState } from "@/lib/app-context";
+import { nextPath } from "@/lib/flow";
 import { login } from "@/lib/mock-api";
 
 export default function LoginPage() {
   return (
     <div className="mx-auto max-w-lg px-4 py-8">
-      <Stepper current={2} />
+      <Stepper current="login" />
       <PageIntro
         kicker="Account"
         title="Sign in"
@@ -41,9 +42,7 @@ function LoginForm() {
     try {
       await login(phoneValue, password, { phone: state.phone, password: state.password });
       update({ loggedIn: true });
-      if (state.payment) router.push("/dashboard");
-      else if (state.eligibility === "ineligible") router.push("/not-eligible");
-      else router.push("/academic-identification");
+      router.push(nextPath({ ...state, loggedIn: true }));
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign-in failed.");
     } finally {
@@ -79,6 +78,9 @@ function LoginForm() {
       </Button>
       <p className="text-sm text-du-muted">
         New applicant? <TextLink href="/register">Register</TextLink>
+      </p>
+      <p className="text-sm text-du-muted">
+        <TextLink href="/forgot-password">Forgot password</TextLink>
       </p>
     </form>
   );

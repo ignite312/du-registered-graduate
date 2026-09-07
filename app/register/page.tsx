@@ -1,20 +1,21 @@
 "use client";
 
+import { emptyState } from "@/lib/app-context";
+import { useAppState } from "@/lib/app-context";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Stepper } from "@/components/stepper";
 import { Alert, Button, Field, Input, PageIntro, TextLink } from "@/components/ui";
-import { useAppState } from "@/lib/app-context";
 import { sendOtp } from "@/lib/mock-api";
 
 export default function RegisterPage() {
   return (
     <div className="mx-auto max-w-lg px-4 py-8">
-      <Stepper current={0} />
+      <Stepper current="register" />
       <PageIntro
         kicker="Account"
         title="Register"
-        description="Create an account with your mobile number. A one-time password will be issued for verification."
+        description="Create an account with your mobile number and password. A one-time password will be issued for verification."
       />
       <RegisterForm />
     </div>
@@ -44,21 +45,7 @@ function RegisterForm() {
     setBusy(true);
     try {
       await sendOtp(phone);
-      update({
-        phone,
-        password,
-        otpSent: true,
-        otpVerified: false,
-        loggedIn: false,
-        academic: null,
-        eligibility: "unchecked",
-        eligibilityReasons: [],
-        lookup: "idle",
-        isExistingRg: false,
-        profile: null,
-        membership: null,
-        payment: null,
-      });
+      update({ ...emptyState, phone, password, otpSent: true });
       router.push("/verify-otp");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unable to send OTP.");

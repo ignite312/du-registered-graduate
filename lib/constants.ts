@@ -5,10 +5,27 @@ export const UNIVERSITY_NAME_EN = "University of Dhaka";
 export const UNIVERSITY_NAME_BN = "ঢাকা বিশ্ববিদ্যালয়";
 
 export const MOCK_OTP = "123456";
+export const EXISTING_RG_ID = "RG-2012-18542";
 export const EXISTING_RG_REGISTRATION = "2012-18542";
+export const DEMO_NEW_REGISTRATION = "2015-10421";
 
-export const SESSION_FEE_BDT = 500;
-export const LIFETIME_FEE_BDT = 5000;
+export const SESSION_FEE_BDT = 1000;
+export const LIFETIME_FEE_BDT = 2500;
+
+export const QUALIFYING_DEGREES = [
+  { id: "hons", label: "Hons." },
+  { id: "masters", label: "Masters" },
+  { id: "degree", label: "Degree" },
+  { id: "diploma", label: "Diploma" },
+] as const;
+
+export const AFFILIATED_UNITS = [
+  "Department (University of Dhaka)",
+  "Institute of Education and Research",
+  "Institute of Statistical Research and Training",
+  "Dhaka College",
+  "Eden Mohila College",
+];
 
 export const DEGREE_PROGRAMS: DegreeProgram[] = [
   { id: "ba-hons", name: "B.A. (Hons)", durationMonths: 48 },
@@ -94,14 +111,31 @@ export const NOTICES = [
   },
 ];
 
-export const FLOW_STEPS = [
+export const ENTRY_STEPS = [
   { id: "register", label: "Register" },
   { id: "otp", label: "OTP" },
   { id: "login", label: "Login" },
-  { id: "academic", label: "Academic ID" },
+  { id: "rg-status", label: "RG Status" },
+] as const;
+
+export const BRANCH_A_STEPS = [
+  ...ENTRY_STEPS,
+  { id: "rg-id", label: "RG ID" },
+  { id: "dashboard", label: "Dashboard" },
+] as const;
+
+export const BRANCH_B_STEPS = [
+  ...ENTRY_STEPS,
+  { id: "details", label: "Details" },
+  { id: "lookup", label: "Lookup" },
   { id: "eligibility", label: "Eligibility" },
-  { id: "lookup", label: "RG Lookup" },
   { id: "profile", label: "Profile" },
+] as const;
+
+export const OPTIONAL_STEPS = [
   { id: "membership", label: "Membership" },
   { id: "payment", label: "Payment" },
 ] as const;
+
+export const DECLARATION_TEXT =
+  "I do hereby declare that the statements made above are correct. In case of detection of any wrong entries my registration will be liable to cancellation without any reference.";

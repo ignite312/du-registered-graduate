@@ -23,7 +23,7 @@ function NotEligibleNotice() {
 
   return (
     <div className="mx-auto max-w-lg px-4 py-8">
-      <Stepper current={4} />
+      <Stepper current="eligibility" />
       <PageIntro
         kicker="Gate"
         title="Not eligible"
@@ -38,6 +38,7 @@ function NotEligibleNotice() {
           <Row label="Session" value={academic.session} />
           <Row label="Degree programme" value={programName(academic.degreeProgramId)} />
           <Row label="Department" value={department ?? "—"} />
+          <Row label="Date of birth" value={academic.dateOfBirth} />
         </dl>
       ) : null}
       <ul className="mt-6 list-disc space-y-2 pl-5 text-sm leading-6 text-du-muted">

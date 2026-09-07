@@ -10,22 +10,27 @@ import {
 } from "react";
 import type { AppState, MembershipType, Profile } from "@/lib/types";
 
-const STORAGE_KEY = "du-rg-portal-state";
+const STORAGE_KEY = "du-rg-portal-state-v4";
 
-const emptyState: AppState = {
+export const emptyState: AppState = {
   phone: "",
   password: "",
   otpSent: false,
   otpVerified: false,
   loggedIn: false,
+  rgStatus: "unknown",
+  rgId: "",
   academic: null,
   eligibility: "unchecked",
   eligibilityReasons: [],
   lookup: "idle",
-  isExistingRg: false,
   profile: null,
+  profileComplete: false,
   membership: null,
+  heldMembership: null,
   payment: null,
+  paymentSkipped: false,
+  tickets: [],
 };
 
 type AppContextValue = {
@@ -67,7 +72,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const setProfile = useCallback((profile: Profile) => {
-    setState((prev) => ({ ...prev, profile }));
+    setState((prev) => ({ ...prev, profile, profileComplete: true }));
   }, []);
 
   const setMembership = useCallback((membership: MembershipType) => {
